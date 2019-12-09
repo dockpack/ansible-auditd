@@ -3,3 +3,4 @@
   service:
     name: auditd
     state: restarted
+  ignore_errors: true  # can be configured not to restart
