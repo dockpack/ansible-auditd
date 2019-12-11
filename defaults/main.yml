@@ -42,6 +42,8 @@ auditd_base_rules:
   - '-a always,exit -F arch=b64 -S chown -F auid>=1000 -F auid!=4294967295 -F key=perm_mod'
   - '-a always,exit -F arch=b64 -S clock_settime -k time-change'
   - '-a always,exit -F arch=b32 -S clock_settime -k time-change'
+  - '-a always,exit -F arch=b32 -S clock_settime -F a0=0x0 -F key=time-change'
+  - '-a always,exit -F arch=b64 -S clock_settime -F a0=0x0 -F key=time-change'
   - '-a always,exit -F arch=b32 -S creat -S open -S openat -S open_by_handle_at -S truncate -S ftruncate -F exit=-EACCES -F auid>=1000 -F auid!=4294967295 -k access'
   - '-a always,exit -F arch=b64 -S creat -S open -S openat -S open_by_handle_at -S truncate -S ftruncate -F exit=-EACCES -F auid>=1000 -F auid!=4294967295 -k access'
   - '-a always,exit -F arch=b32 -S creat -S open -S openat -S open_by_handle_at -S truncate -S ftruncate -F exit=-EPERM -F auid>=1000 -F auid!=4294967295 -k access'
@@ -139,7 +141,7 @@ auditd_base_rules:
   - '-w /var/log/tallylog -p wa -k logins'
   - '-w /var/log/wtmp -p wa -k session'
   - '-w /var/run/utmp -p wa -k session'
-  - '-w /var/run/faillock/ -p wa -k logins'
+  - '-w /var/run/faillock -p wa -k logins'
 
 auditd_custom_rules: []
 
